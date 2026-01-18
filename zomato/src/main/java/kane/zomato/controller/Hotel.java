@@ -45,4 +45,12 @@ public class Hotel {
         return new ResponseEntity<>(hotelService.getHotelById(hotelId), HttpStatus.CREATED);
     }
 
+    @PostMapping("/deleteHotelById/{hotelId}")
+    @Operation(summary = "Delete Existing Hotel", tags = {"Delete Existing Hotel"})
+    public ResponseEntity<HotelDto> deleteHotelById(@PathVariable Long hotelId) {
+        log.info("Delete Existing Hotel: {}", hotelId);
+        hotelService.deleteHotelById(hotelId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

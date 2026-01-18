@@ -64,7 +64,12 @@ public class HotelServiceImpl implements  HotelService{
 
     @Override
     public void deleteHotelById(Long hotelId) {
+        Hotel existingHotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() ->
+                        new RuntimeException("No Hotel exists with id: " + hotelId)
+                );
 
+        hotelRepository.delete(existingHotel);
     }
 
 
