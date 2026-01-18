@@ -36,8 +36,30 @@ public class HotelServiceImpl implements  HotelService{
     }
 
     @Override
-    public HotelDto getHotelId(Long hotelId) {
-        return null;
+    public HotelDto updateHotel(Long hotelId, HotelDto hotelDto) {
+
+        Hotel existingHotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() ->
+                        new RuntimeException("Hotel not found with id: " + hotelId)
+                );
+
+        // Update only allowed fields
+        existingHotel.setName(hotelDto.getName());
+        existingHotel.setOwnerName(hotelDto.getOwnerName());
+        existingHotel.setPhoneNumber(hotelDto.getPhoneNumber());
+
+        Hotel updatedHotel = hotelRepository.save(existingHotel);
+
+        return modelMapper.map(updatedHotel, HotelDto.class);
+    }
+
+    @Override
+    public HotelDto getHotelById(Long hotelId) {
+        Hotel existingHotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() ->
+                        new RuntimeException("No Hotel exist: " + hotelId)
+                );
+        return modelMapper.map(existingHotel, HotelDto.class);
     }
 
     @Override
@@ -45,8 +67,5 @@ public class HotelServiceImpl implements  HotelService{
 
     }
 
-    @Override
-    public HotelDto updateHotelById(Long hotelId, HotelDto hotelDto) {
-        return null;
-    }
+
 }
