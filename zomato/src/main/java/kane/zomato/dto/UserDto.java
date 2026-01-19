@@ -1,5 +1,6 @@
 package kane.zomato.dto;
-import kane.zomato.enums.Gender;
+import jakarta.validation.constraints.NotBlank;
+
 import lombok.Data;
 import java.time.LocalDate;
 
@@ -7,13 +8,15 @@ import java.time.LocalDate;
 public class UserDto {
     private Long id;
 
-    private String userName;
+    @NotBlank(message = "Email is required")
     private String email;
 
-    private Gender gender;
+    @NotBlank(message = "Gender is required")
+    private String gender;
 
     private LocalDate dateOfBirth;
 
+    @NotBlank(message = "Phone Number is required")
     private String phoneNumber;
 
     private String firstName;

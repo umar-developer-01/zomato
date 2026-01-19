@@ -1,12 +1,12 @@
 package kane.zomato.service;
 import kane.zomato.dto.UserDto;
+import kane.zomato.entity.User;
 import kane.zomato.respository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -19,11 +19,27 @@ public class UserServiceImpl implements  UserService{
 
     @Override
     public UserDto updateUserById(Long userId, UserDto updateUserRequest) {
-        return null;
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found with id: " + userId)
+                );
+
+        // Update only allowed fields
+        existingUser.setEmail(updateUserRequest.getEmail());
+        existingUser.setGender(updateUserRequest.getGender());
+        existingUser.setPhoneNumber(updateUserRequest.getPhoneNumber());
+
+        User updatedUser = userRepository.save(existingUser);
+
+        return modelMapper.map(updatedUser, UserDto.class);
     }
 
     @Override
     public UserDto getUserById(Long userId) {
-        return null;
+        User existingUser = userRepository.findById(userId)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found with id: " + userId)
+                );
+        return modelMapper.map(existingUser, UserDto.class);
     }
 }

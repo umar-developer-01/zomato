@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.*;
-
 import lombok.RequiredArgsConstructor;
+
 
 @Slf4j
 @RestController
@@ -27,7 +27,7 @@ public class User {
         return new ResponseEntity<>(userService.updateUserById(userId,updateUserRequest), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("getUserById/{userId}")
     @Operation(summary = "Get an existing User", tags = {"Fetch Existing User"})
     public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
         log.info("Get an existing User: {}", userId);
