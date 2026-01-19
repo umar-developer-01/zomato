@@ -2,7 +2,7 @@ package kane.zomato.controller;
 import jakarta.validation.Valid;
 import kane.zomato.dto.UserDto;
 import kane.zomato.dto.SignupDto;
-import kane.zomato.dto.LoginDto;
+
 
 import lombok.extern.slf4j.Slf4j;
 import kane.zomato.security.AuthService;

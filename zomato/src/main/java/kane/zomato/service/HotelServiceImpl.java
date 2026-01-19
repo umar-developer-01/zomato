@@ -1,16 +1,13 @@
 package kane.zomato.service;
 import kane.zomato.dto.HotelDto;
-import kane.zomato.dto.UserDto;
 import kane.zomato.entity.Hotel;
-import kane.zomato.entity.User;
-import kane.zomato.enums.Role;
 import kane.zomato.respository.HotelRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+
 
 @Service
 @RequiredArgsConstructor
