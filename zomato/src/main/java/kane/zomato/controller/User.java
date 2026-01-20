@@ -27,12 +27,12 @@ public class User {
         return new ResponseEntity<>(userService.updateUserById(userId,updateUserRequest), HttpStatus.CREATED);
     }
 
-    @GetMapping("getUserById/{userId}")
-    @Operation(summary = "Get an existing User", tags = {"Fetch Existing User"})
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
-        log.info("Get an existing User: {}", userId);
-        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.CREATED);
-    }
+//    @GetMapping("getUserById/{userId}")
+//    @Operation(summary = "Get an existing User", tags = {"Fetch Existing User"})
+//    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
+//        log.info("Get an existing User: {}", userId);
+//        return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.CREATED);
+//    }
 
 
 }

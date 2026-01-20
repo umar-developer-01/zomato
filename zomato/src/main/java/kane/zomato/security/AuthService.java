@@ -1,5 +1,9 @@
 package kane.zomato.security;
+
+import kane.zomato.dto.LoginDto;
+import kane.zomato.dto.LoginResponseDto;
 import kane.zomato.dto.UserDto;
+import kane.zomato.exception.InvalidCredentialException;
 import kane.zomato.respository.UserRepository;
 import org.modelmapper.ModelMapper;
 import kane.zomato.entity.User;
@@ -17,7 +21,8 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-     private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+    private final JWTService jwtService;
 
     public UserDto signUp(SignupDto signUpRequestDto) {
         User user = userRepository.findByEmail(signUpRequestDto.getEmail()).orElse(null);
@@ -35,5 +40,28 @@ public class AuthService {
 
     }
 
+
+    public LoginResponseDto login(LoginDto loginRequestDto) {
+
+        User user = userRepository.findByEmail(loginRequestDto.getEmail())
+                .orElseThrow(() -> new InvalidCredentialException("Invalid Credentials"));
+
+        if (!passwordEncoder.matches(
+                loginRequestDto.getPassword(),
+                user.getPassword()
+        )) {
+            throw new InvalidCredentialException("Invalid Credentials");
+        }
+
+        String accessToken = jwtService.generateAccessToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        return LoginResponseDto.builder()
+                .user(modelMapper.map(user, UserDto.class))
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+
+    }
 
 }

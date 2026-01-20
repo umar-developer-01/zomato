@@ -35,11 +35,11 @@ public class UserServiceImpl implements  UserService{
     }
 
     @Override
-    public UserDto getUserById(Long userId) {
+    public User getUserById(Long userId) {
         User existingUser = userRepository.findById(userId)
                 .orElseThrow(() ->
                         new RuntimeException("User not found with id: " + userId)
                 );
-        return modelMapper.map(existingUser, UserDto.class);
+        return existingUser;
     }
 }

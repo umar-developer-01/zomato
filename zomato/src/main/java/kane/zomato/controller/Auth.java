@@ -1,5 +1,7 @@
 package kane.zomato.controller;
 import jakarta.validation.Valid;
+import kane.zomato.dto.LoginDto;
+import kane.zomato.dto.LoginResponseDto;
 import kane.zomato.dto.UserDto;
 import kane.zomato.dto.SignupDto;
 
@@ -34,6 +36,14 @@ public class Auth {
     public ResponseEntity<UserDto> signup(@Valid @RequestBody SignupDto signUpRequestDto) {
         log.info("Signup request received: {}", signUpRequestDto);
         return new ResponseEntity<>(authService.signUp(signUpRequestDto), HttpStatus.CREATED);
+    }
+
+
+    @PostMapping("/login")
+    @Operation(summary = "Login to a account", tags = {"Auth"})
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginDto loginRequestDto) {
+        log.info("Login request received: {}", loginRequestDto);
+        return new ResponseEntity<>(authService.login(loginRequestDto), HttpStatus.CREATED);
     }
 
 //    @PostMapping("/login")

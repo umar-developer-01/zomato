@@ -71,3 +71,9 @@ public class HotelServiceImpl implements  HotelService{
 
 
 }
+
+
+//Authentication auth =
+//        SecurityContextHolder.getContext().getAuthentication();
+//You can access:
+//user roles authorities
