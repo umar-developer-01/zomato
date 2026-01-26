@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class UserDto {
     private Long id;
 
-    @NotBlank(message = "Email is required")
+//    @NotBlank(message = "Email is required")
     private String email;
 
     @NotBlank(message = "Gender is required")
