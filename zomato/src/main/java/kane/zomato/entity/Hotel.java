@@ -1,11 +1,13 @@
 package kane.zomato.entity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -35,7 +37,13 @@ public class Hotel {
     @Column(nullable = false)
     private String country;
 
-    private String[] photos;
+    @ElementCollection
+    @CollectionTable(
+            name = "hotel_photos",
+            joinColumns = @JoinColumn(name = "hotel_id")
+    )
+    @Column(name = "photo_url")
+    private Set<String> photos;
 
     private LocalDate dateOfRegistration;
 
@@ -69,3 +77,13 @@ public class Hotel {
         return getClass().hashCode();
     }
 }
+
+
+
+// One Hotel has many menu items
+//    @OneToMany(
+//            mappedBy = "hotel",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private Set<MenuItem> items;
