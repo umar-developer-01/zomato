@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,10 +33,7 @@ public class MenuItem {
     @DecimalMin(value = "0.0", inclusive = true)
     private BigDecimal tax;
 
-    @NotNull(message = "Tax is required")
-    @DecimalMin(value = "0.0", inclusive = true)
     private BigDecimal finalPrice;
-
 
     @NotNull(message = "Hotel is required")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,8 +41,6 @@ public class MenuItem {
     private Hotel hotel;
 
     private Boolean available = false;
-
-
 
     @PrePersist
     @PreUpdate

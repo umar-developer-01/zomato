@@ -20,13 +20,11 @@ public class MenuDto {
     @NotBlank(message = "Tax is required")
     private Double tax;
 
-    @NotBlank(message = "Final Price is required")
     private Double finalPrice;
 
     @NotNull(message = "Hotel Id is required")
     private Long hotelId;
 
-    @NotNull(message = "Available is required")
     private Boolean available;
 
 }
