@@ -1,7 +1,7 @@
 package kane.zomato.service;
 import kane.zomato.dto.MenuDto;
 import kane.zomato.entity.Hotel;
-import kane.zomato.entity.MenuItem;
+import kane.zomato.entity.Menu;
 import kane.zomato.respository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,13 +20,13 @@ public class MenuServiceImpl implements  MenuService {
 
     @Override
     public MenuDto create(MenuDto menuDto) {
-        MenuItem menuItem = menuRepository.findByDishName(menuDto.getDishName()).orElse(null);
+        Menu menuItem = menuRepository.findByDishName(menuDto.getDishName()).orElse(null);
 
         if (menuItem != null) {
             throw new RuntimeException("Menu Iteam is already present with same name");
         }
 
-        MenuItem newMenu = modelMapper.map(menuDto, MenuItem.class);
+        Menu newMenu = modelMapper.map(menuDto, Menu.class);
 
         newMenu = menuRepository.save(newMenu);
 
@@ -36,26 +36,27 @@ public class MenuServiceImpl implements  MenuService {
     @Override
     public MenuDto update(Long menuId, MenuDto menuDto) {
 
-        MenuItem existingMenu = menuRepository.findById(menuId)
+        Menu existingMenu = menuRepository.findById(menuId)
                 .orElseThrow(() ->
-                        new RuntimeException("Menu not found with id: " + hotelId)
+                        new RuntimeException("Menu not found with id: " + menuId)
                 );
 
         // Update only allowed fields
         existingMenu.setDishName(menuDto.getDishName());
+        existingMenu.setDepartment(menuDto.getDepartment());
         existingMenu.setPrice(menuDto.getPrice());
+        existingMenu.setTax(menuDto.getTax());
         existingMenu.setHotelId(menuDto.getHotelId());
-        existingMenu.setHotelId(menuDto.getHotelId());
-        existingMenu.setHotelId(menuDto.getHotelId());
+        existingMenu.setAvailable(menuDto.getAvailable());
 
-        MenuItem updatedMenu = menuRepository.save(existingMenu);
+        Menu updatedMenu = menuRepository.save(existingMenu);
 
         return modelMapper.map(updatedMenu, MenuDto.class);
     }
 
     @Override
     public MenuDto getMenu(Long menuId) {
-        MenuItem existingMenu = menuRepository.findById(menuId)
+        Menu existingMenu = menuRepository.findById(menuId)
                 .orElseThrow(() ->
                         new RuntimeException("No Menu exist: " + menuId)
                 );

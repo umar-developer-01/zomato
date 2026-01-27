@@ -1,7 +1,10 @@
 package kane.zomato.dto;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 @Data
 public class MenuDto {
@@ -14,13 +17,15 @@ public class MenuDto {
     @NotBlank(message = "Department name is required")
     private String department;
 
-    @NotBlank(message = "Price is required")
-    private Double price;
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.0", inclusive = true)
+    private BigDecimal price;
 
-    @NotBlank(message = "Tax is required")
-    private Double tax;
+    @NotNull(message = "Tax is required")
+    @DecimalMin(value = "0.0", inclusive = true)
+    private BigDecimal tax;
 
-    private Double finalPrice;
+    private BigDecimal finalPrice;
 
     @NotNull(message = "Hotel Id is required")
     private Long hotelId;

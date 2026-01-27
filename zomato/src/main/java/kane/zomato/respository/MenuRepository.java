@@ -1,12 +1,12 @@
 package kane.zomato.respository;
 
-import kane.zomato.entity.MenuItem;
+import kane.zomato.entity.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 
-public interface MenuRepository extends JpaRepository<MenuItem, Long> {
-    Optional<MenuItem> findByDishName(String dishName);
+public interface MenuRepository extends JpaRepository<Menu, Long> {
+    Optional<Menu> findByDishName(String dishName);
 }
 
 
