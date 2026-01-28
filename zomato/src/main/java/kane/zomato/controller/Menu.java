@@ -39,7 +39,7 @@ public class Menu {
         return new ResponseEntity<>(menuService.update(menuId,updateRequest), HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/menu/{menuId}")
+    @GetMapping("/{menuId}")
     @Operation(summary = "Get an existing Menu", tags = {"Get Existing Hotel"})
     public ResponseEntity<MenuDto> getMenu(@PathVariable Long menuId) {
         log.info("Get an existing Menu: {}", menuId);
