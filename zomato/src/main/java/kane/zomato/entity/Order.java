@@ -1,8 +1,6 @@
 package kane.zomato.entity;
 
-
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import kane.zomato.enums.OrderStatus;
@@ -33,8 +31,7 @@ public class Order {
     @JoinColumn(name = "hotel_id", nullable = false)
     private Hotel hotel;
 
-    // One order has many items
-    //    @NotEmpty(message = "Order must contain at least one item")
+
     @OneToMany(
             mappedBy = "order",
             cascade = CascadeType.ALL,
