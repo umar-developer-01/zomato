@@ -1,20 +1,18 @@
 package kane.zomato.security;
 
-import kane.zomato.dto.LoginDto;
-import kane.zomato.dto.LoginResponseDto;
-import kane.zomato.dto.UserDto;
+import kane.zomato.dto.*;
 import kane.zomato.exception.InvalidCredentialException;
 import kane.zomato.respository.UserRepository;
 import org.modelmapper.ModelMapper;
+import lombok.extern.slf4j.Slf4j;
 import kane.zomato.entity.User;
 import kane.zomato.enums.Role;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import kane.zomato.dto.SignupDto;
-
 import java.util.Set;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -64,4 +62,26 @@ public class AuthService {
 
     }
 
+
+    public RefreshResponseDto refreshToken(String authHeader){
+        String refreshToken = authHeader.substring(7);
+        log.info("This is the refreshToken={}", refreshToken);
+
+        JwtDto jwtDto = jwtService.isTokenValid(refreshToken);
+
+        if (!jwtDto.isValid()) {
+            throw new RuntimeException(jwtDto.getMessage());
+        }
+
+        Long userId = jwtService.getUserIdFromToken(refreshToken);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        String newAccessToken = jwtService.generateAccessToken(user);
+        log.info("New access token generated for userId={}", userId);
+
+        return RefreshResponseDto.builder()
+                .accessToken(newAccessToken)
+                .build();
+    }
 }

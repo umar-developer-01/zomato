@@ -1,9 +1,6 @@
 package kane.zomato.controller;
 import jakarta.validation.Valid;
-import kane.zomato.dto.LoginDto;
-import kane.zomato.dto.LoginResponseDto;
-import kane.zomato.dto.UserDto;
-import kane.zomato.dto.SignupDto;
+import kane.zomato.dto.*;
 
 
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 
 
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -44,6 +38,14 @@ public class Auth {
     public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginDto loginRequestDto) {
         log.info("Login request received: {}", loginRequestDto);
         return new ResponseEntity<>(authService.login(loginRequestDto), HttpStatus.CREATED);
+    }
+
+
+    @GetMapping("/refresh")
+    @Operation(summary = "Refresh the auth token", tags = {"Auth"})
+    public ResponseEntity<RefreshResponseDto> refreshToken(@RequestHeader("Authorization") String authHeader) {
+        log.info("Refresh request received: {}", authHeader);
+        return new ResponseEntity<>(authService.refreshToken(authHeader), HttpStatus.CREATED);
     }
 
 //    @PostMapping("/login")
