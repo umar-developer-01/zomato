@@ -1,6 +1,8 @@
 package kane.zomato.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import kane.zomato.enums.OrderStatus;
@@ -32,6 +34,8 @@ public class Order {
     private Hotel hotel;
 
 
+    @NotEmpty(message = "Order must contain at least one item")
+    @Valid
     @OneToMany(
             mappedBy = "order",
             cascade = CascadeType.ALL,
@@ -49,6 +53,15 @@ public class Order {
 
 }
 
+
+//@NotEmpty   // collection-level rule
+//@Valid      // element-level rules
+
+//You enforce:
+//
+//Order must contain at least one item
+//
+//Each item must be valid
 
 //| Annotation  | Applies To                      | What it checks                            |
 //        | ----------- | ------------------------------- | ----------------------------------------- |
