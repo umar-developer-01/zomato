@@ -35,6 +35,14 @@ public class Order {
     }
 
 
+//    @PostMapping("/addToCart")
+//    @Operation(summary = "Add to Cart", tags = {"Add to Cart"})
+//    public ResponseEntity<OrderItemDto> addToCart(@Valid @RequestBody OrderItemDto addToCartRequest) {
+//        log.info("Add to Cart: {}", addToCartRequest);
+//        return new ResponseEntity<>(orderService.addToCart(addToCartRequest), HttpStatus.CREATED);
+//    }
+
+
 //    @PutMapping("/update/{menuId}")
 //    @Operation(summary = "Update an existing Menu", tags = {"Update an existing Menu"})
 //    public ResponseEntity<MenuDto> update(@PathVariable Long menuId, @Valid @RequestBody MenuDto updateRequest) {
