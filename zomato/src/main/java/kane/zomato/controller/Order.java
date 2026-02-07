@@ -1,12 +1,7 @@
 package kane.zomato.controller;
 
 import jakarta.validation.Valid;
-import kane.zomato.dto.HotelDto;
-import kane.zomato.dto.MenuDto;
-import kane.zomato.dto.OrderItemDto;
-import kane.zomato.entity.OrderItem;
-import kane.zomato.service.HotelServiceImpl;
-import kane.zomato.service.MenuServiceImpl;
+import kane.zomato.dto.*;
 import kane.zomato.service.OrderServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,12 +30,12 @@ public class Order {
     }
 
 
-//    @PostMapping("/addToCart")
-//    @Operation(summary = "Add to Cart", tags = {"Add to Cart"})
-//    public ResponseEntity<OrderItemDto> addToCart(@Valid @RequestBody OrderItemDto addToCartRequest) {
-//        log.info("Add to Cart: {}", addToCartRequest);
-//        return new ResponseEntity<>(orderService.addToCart(addToCartRequest), HttpStatus.CREATED);
-//    }
+    @PostMapping("/addToCart")
+    @Operation(summary = "Add to Cart", tags = {"Add to Cart"})
+    public ResponseEntity<MessageDto> addToCart(@Valid @RequestBody CartDto addToCartRequest) {
+        log.info("Add to Cart: {}", addToCartRequest);
+        return new ResponseEntity<>(orderService.addToCart(addToCartRequest), HttpStatus.CREATED);
+    }
 
 
 //    @PutMapping("/update/{menuId}")

@@ -1,6 +1,10 @@
 package kane.zomato.service;
 
+import kane.zomato.dto.CartDto;
+import kane.zomato.dto.MessageDto;
 import kane.zomato.dto.OrderItemDto;
+import kane.zomato.entity.Hotel;
+import kane.zomato.entity.Menu;
 import kane.zomato.entity.OrderItem;
 import kane.zomato.respository.HotelRepository;
 import kane.zomato.respository.MenuRepository;
@@ -31,5 +35,23 @@ public class OrderServiceImpl implements OrderService {
 
         return modelMapper.map(orderItem, OrderItemDto.class);
 
+    }
+
+
+    @Override
+    public MessageDto addToCart(CartDto addToCartRequest) {
+
+        Menu menuItem = menuRepository.findById(addToCartRequest.getId())
+                .orElseThrow(() ->
+                        new RuntimeException("Menu Item not found with id: " + addToCartRequest.getId())
+                );
+
+
+
+
+        //return new MessageDto("Successfully added the Menu Item in the Cart");
+        return MessageDto.builder()
+                .message("Successfully added the Menu Item in the Cart")
+                .build();
     }
 }
