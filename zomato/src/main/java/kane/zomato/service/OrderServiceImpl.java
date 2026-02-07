@@ -15,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -45,6 +47,16 @@ public class OrderServiceImpl implements OrderService {
                 .orElseThrow(() ->
                         new RuntimeException("Menu Item not found with id: " + addToCartRequest.getId())
                 );
+
+
+        Optional<Hotel> hotelOptional = Optional.ofNullable(menuItem.getHotel());
+
+        if (hotelOptional.isEmpty()) {
+            return MessageDto.builder()
+                    .message("Hotel does not exist for this Menu Item")
+                    .build();
+        }
+
 
 
 
