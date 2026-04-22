@@ -7,7 +7,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import kane.zomato.dto.JwtDto;
 import kane.zomato.entity.User;
-import kane.zomato.enums.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.List;
 
 
 @Slf4j
@@ -68,17 +66,17 @@ public class JWTService {
     }
 
 
-    public List<Role> getRolesFromToken(String token) {
-        List<String> roles = getAllClaims(token).get("roles", List.class);
-        return roles.stream().map(Role::valueOf).toList();
-
-        //Role::valueOf is a method reference
-        //.map(role -> Role.valueOf(role))
-        //Role.valueOf("ADMIN") → Role.ADMIN
-        //Role.valueOf("USER")  → Role.USER
-        //"roles": ["ADMIN", "USER"]
-        //List<Role> = [Role.ADMIN, Role.USER]
-    }
+//    public List<Role> getRolesFromToken(String token) {
+////        List<String> roles = getAllClaims(token).get("roles", List.class);
+////        return roles.stream().map(Role::valueOf).toList();
+//
+//        //Role::valueOf is a method reference
+//        //.map(role -> Role.valueOf(role))
+//        //Role.valueOf("ADMIN") → Role.ADMIN
+//        //Role.valueOf("USER")  → Role.USER
+//        //"roles": ["ADMIN", "USER"]
+//        //List<Role> = [Role.ADMIN, Role.USER]
+//    }
 
     public JwtDto isTokenValid(String token) {
         try {

@@ -6,11 +6,9 @@ import kane.zomato.respository.UserRepository;
 import org.modelmapper.ModelMapper;
 import lombok.extern.slf4j.Slf4j;
 import kane.zomato.entity.User;
-import kane.zomato.enums.Role;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.Set;
 
 @Slf4j
 @Service
@@ -30,7 +28,7 @@ public class AuthService {
         }
 
         User newUser = modelMapper.map(signUpRequestDto, User.class);
-//        newUser.setRoles(Set.of(Role.USER));
+
         newUser.setPassword(passwordEncoder.encode(signUpRequestDto.getPassword()));
         newUser = userRepository.save(newUser);
 

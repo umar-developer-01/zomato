@@ -1,11 +1,7 @@
 package kane.zomato.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import kane.zomato.enums.ERole;
-import lombok.Getter;
-import lombok.Setter;
-import java.math.BigDecimal;
+import kane.zomato.enums.RoleE;
 
 @Entity
 @Table(name = "roles")
@@ -17,7 +13,7 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20, unique = true, nullable = false)
-    private ERole name;  // Enum: ROLE_USER, ROLE_ADMIN, ROLE_CASHIER
+    private RoleE name;  // Enum: ROLE_USER, ROLE_ADMIN, ROLE_CASHIER
 
     // getters/setters
 }
