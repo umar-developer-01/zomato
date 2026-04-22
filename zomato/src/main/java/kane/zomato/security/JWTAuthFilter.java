@@ -10,6 +10,7 @@ import kane.zomato.dto.UserDto;
 import kane.zomato.entity.User;
 import kane.zomato.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
     private final JWTService jwtService;
     private final UserService userService;
+    private final ModelMapper modelMapper;
 
     @Autowired
     @Qualifier("handlerExceptionResolver")
@@ -53,8 +55,10 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             //Improves performance
             //Avoids overwriting existing auth
             if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                User user = userService.getUserById(userId);
-                // check if the user should be allowed
+                UserDto user1 = userService.getUserById(userId);
+
+                User user = modelMapper.map(user1, User.class);
+
 
                 CustomUserDetails userDetails = new CustomUserDetails(user);
 
@@ -91,7 +95,6 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 //SecurityContext (user is set here)
 //   ↓
 //Controller / API
-
 
 
 //Because:
