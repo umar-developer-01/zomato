@@ -3,6 +3,8 @@ import jakarta.validation.constraints.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
@@ -12,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@ToString
 @Setter
 @Table(name = "app_user")
 public class User  {
@@ -52,7 +55,7 @@ public class User  {
 //    private Set<Role> roles;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

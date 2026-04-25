@@ -27,13 +27,13 @@ public class SecurityConfig {
                         .requestMatchers("/auth/signup", "/auth/login").permitAll()
 
                         // 🔒 Admin only
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/**","/hotel/**").hasRole("ADMIN")
 
                         // 🔒 Cashier only
                         .requestMatchers("/cashier/**").hasRole("CASHIER")
 
                         // 🔒 Logged in users
-                        .requestMatchers("/user/**","/hotel/**").hasRole("USER")
+                        .requestMatchers("/user/**").hasRole("USER")
 
                         // 🔒 Everything else
                         .anyRequest().authenticated()

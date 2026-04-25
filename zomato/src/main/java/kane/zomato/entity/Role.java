@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
 import kane.zomato.enums.RoleE;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 @Entity
 @Table(name = "roles")
 public class Role {

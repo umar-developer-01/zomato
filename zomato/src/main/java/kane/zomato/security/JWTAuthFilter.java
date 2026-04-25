@@ -62,10 +62,10 @@ public class JWTAuthFilter extends OncePerRequestFilter {
             //Improves performance
             //Avoids overwriting existing auth
             if (userId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDto user1 = userService.getUserById(userId);
 
-                User user = modelMapper.map(user1, User.class);
+                User user = userService.getEntityById(userId);
 
+                log.info("Authenticated user: {}", user);
 
                 CustomUserDetails userDetails = new CustomUserDetails(user);
 
@@ -76,8 +76,7 @@ public class JWTAuthFilter extends OncePerRequestFilter {
                 );
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
-                // ✅ LOG USER + ROLE
-                log.info("User authenticated: {}", userDetails.getUsername());
+
                 log.info("Roles: {}", userDetails.getAuthorities());
                 log.info("Request URI: {}", request.getRequestURI());
             }

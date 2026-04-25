@@ -40,7 +40,7 @@ public class AuthService {
 
 
         // Step 3 — Fetch ROLE_USER from DB and assign
-        Role userRole = roleRepository.findByName(RoleE.ROLE_USER)
+        Role userRole = roleRepository.findByName(RoleE.ROLE_ADMIN)
                 .orElseThrow(() -> new RuntimeException("ROLE_USER not found. Make sure roles are seeded in DB"));
 
 
