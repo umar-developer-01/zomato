@@ -84,20 +84,5 @@ public class JWTAuthFilter extends OncePerRequestFilter {
     }
 }
 
-//JWTAuthFilter is a Spring Security filter that:
-//
-//👉 Runs once for every HTTP request
-//👉 Reads the JWT from the Authorization header
-//👉 Validates it
-//👉 Sets the authenticated user into SecurityContext
-//After that, Spring Security treats the request as authenticated.
-
-//Client Request
-//   ↓
-//JWTAuthFilter   ← (your code runs here)
-//        ↓
-//SecurityContext (user is set here)
-//   ↓
-//Controller / API
 
 
