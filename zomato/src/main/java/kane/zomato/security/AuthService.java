@@ -1,7 +1,10 @@
 package kane.zomato.security;
 
 import kane.zomato.dto.*;
+import kane.zomato.entity.Role;
+import kane.zomato.enums.RoleE;
 import kane.zomato.exception.InvalidCredentialException;
+import kane.zomato.respository.RoleRepository;
 import kane.zomato.respository.UserRepository;
 import org.modelmapper.ModelMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +12,9 @@ import kane.zomato.entity.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -19,6 +25,7 @@ public class AuthService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final JWTService jwtService;
+    private final RoleRepository roleRepository;
 
     public UserDto signUp(SignupDto signUpRequestDto) {
         User user = userRepository.findByEmail(signUpRequestDto.getEmail()).orElse(null);
@@ -30,6 +37,15 @@ public class AuthService {
         User newUser = modelMapper.map(signUpRequestDto, User.class);
 
         newUser.setPassword(passwordEncoder.encode(signUpRequestDto.getPassword()));
+
+
+        // Step 3 — Fetch ROLE_USER from DB and assign
+        Role userRole = roleRepository.findByName(RoleE.ROLE_USER)
+                .orElseThrow(() -> new RuntimeException("ROLE_USER not found. Make sure roles are seeded in DB"));
+
+        newUser.setRoles(new HashSet<>(Set.of(userRole)));
+
+
         newUser = userRepository.save(newUser);
 
         return modelMapper.map(newUser, UserDto.class);
