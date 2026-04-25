@@ -43,6 +43,10 @@ public class AuthService {
         Role userRole = roleRepository.findByName(RoleE.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("ROLE_USER not found. Make sure roles are seeded in DB"));
 
+
+
+        //Set<Role> roleToAdd = new HashSet<>(Set.of(userRole));
+        //newUser.setRoles(roleToAdd);
         newUser.setRoles(new HashSet<>(Set.of(userRole)));
 
 

@@ -113,3 +113,15 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 //
 //If YES → don’t override
 //If NO → authenticate now
+
+
+//Set.of(userRole)
+//
+//Creates a fixed/immutable set containing just userRole
+//You cannot add or remove from it after creation
+//If you try → throws UnsupportedOperationException
+
+//new HashSet<>(Set.of(userRole))
+//
+//Takes that immutable set and copies it into a new mutable HashSet
+//Now you can add/remove freely
