@@ -13,22 +13,24 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class JWTAuthFilter extends OncePerRequestFilter {
 
     private final JWTService jwtService;
     private final UserService userService;
     private final ModelMapper modelMapper;
+
+
 
     @Autowired
     @Qualifier("handlerExceptionResolver")
@@ -49,6 +51,8 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 
             String token = requestTokenHeader.split("Bearer ")[1];
             Long userId = jwtService.getUserIdFromToken(token);
+
+
 
 
             // Prevents re-authentication
@@ -97,31 +101,3 @@ public class JWTAuthFilter extends OncePerRequestFilter {
 //Controller / API
 
 
-//Because:
-//
-//Multiple filters can run in the chain
-//
-//Another filter might have already authenticated the request
-//
-//Or your filter might be accidentally registered twice
-//
-//Or async / forward / internal dispatch occurs
-//
-//So Spring checks:
-//
-//        “Has someone already authenticated this request?”
-//
-//If YES → don’t override
-//If NO → authenticate now
-
-
-//Set.of(userRole)
-//
-//Creates a fixed/immutable set containing just userRole
-//You cannot add or remove from it after creation
-//If you try → throws UnsupportedOperationException
-
-//new HashSet<>(Set.of(userRole))
-//
-//Takes that immutable set and copies it into a new mutable HashSet
-//Now you can add/remove freely
