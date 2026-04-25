@@ -66,18 +66,6 @@ public class JWTService {
     }
 
 
-//    public List<Role> getRolesFromToken(String token) {
-////        List<String> roles = getAllClaims(token).get("roles", List.class);
-////        return roles.stream().map(Role::valueOf).toList();
-//
-//        //Role::valueOf is a method reference
-//        //.map(role -> Role.valueOf(role))
-//        //Role.valueOf("ADMIN") → Role.ADMIN
-//        //Role.valueOf("USER")  → Role.USER
-//        //"roles": ["ADMIN", "USER"]
-//        //List<Role> = [Role.ADMIN, Role.USER]
-//    }
-
     public JwtDto isTokenValid(String token) {
         try {
             getAllClaims(token);

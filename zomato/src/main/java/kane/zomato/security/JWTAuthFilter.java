@@ -19,9 +19,12 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
+
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JWTAuthFilter extends OncePerRequestFilter {
@@ -72,6 +75,11 @@ public class JWTAuthFilter extends OncePerRequestFilter {
                         new WebAuthenticationDetailsSource().buildDetails(request)
                 );
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+
+                // ✅ LOG USER + ROLE
+                log.info("User authenticated: {}", userDetails.getUsername());
+                log.info("Roles: {}", userDetails.getAuthorities());
+                log.info("Request URI: {}", request.getRequestURI());
             }
             filterChain.doFilter(request, response);
         } catch (JwtException ex) {

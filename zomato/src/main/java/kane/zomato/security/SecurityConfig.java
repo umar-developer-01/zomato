@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         // ✅ Public routes
-                        .requestMatchers("/auth/signup", "/auth/login","/hotel/**").permitAll()
+                        .requestMatchers("/auth/signup", "/auth/login").permitAll()
 
                         // 🔒 Admin only
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/cashier/**").hasRole("CASHIER")
 
                         // 🔒 Logged in users
-                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/user/**","/hotel/**").hasRole("USER")
 
                         // 🔒 Everything else
                         .anyRequest().authenticated()
